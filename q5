@@ -1,0 +1,15 @@
+def calculate(expression: str) -> float:
+    s = expression.replace(" ", "") + "+"
+    stack, num, sign = [], 0, "+"
+
+    for c in s:
+        if c.isdigit():
+            num = num * 10 + int(c)
+        else:
+            if sign == "+": stack.append(num)
+            elif sign == "-": stack.append(-num)
+            elif sign == "*": stack[-1] *= num
+            elif sign == "/": stack[-1] /= num
+            num, sign = 0, c
+
+    return round(sum(stack), 2)
